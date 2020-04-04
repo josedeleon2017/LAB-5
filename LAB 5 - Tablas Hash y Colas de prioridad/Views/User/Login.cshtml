@@ -1,0 +1,44 @@
+﻿@model LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models.UserModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h1>Login</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <form class="form-horizontal">
+        <fieldset>
+            <legend></legend>
+
+            <div class="form-group">
+                <label for="inputId" class="col-lg-2 control-label">Usuario</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="inputId" placeholder="ID" name="Id">
+                    @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <br>
+            <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">Contraseña</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="inputPassword" placeholder="Contraseña" name="Password">
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <br>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="reset" class="btn btn-default">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+}

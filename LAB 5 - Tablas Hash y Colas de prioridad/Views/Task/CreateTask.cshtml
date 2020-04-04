@@ -1,0 +1,85 @@
+﻿@model LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models.TaskModel
+
+@{
+    ViewBag.Title = "CreateTask";
+}
+
+<h1>Developer</h1>
+<h4>@ViewBag.Message</h4>
+<br />
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <form class="form-horizontal">
+        <fieldset>
+            <legend>New Task</legend>
+
+            <div class="form-group">
+                <label for="inputTitle" class="col-lg-2 control-label">Titulo</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="inputTitle" placeholder="Titulo de la tarea" name="Title">
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="textDescription" class="col-lg-2 control-label">Descripción</label>
+                <div class="col-lg-10">
+                    <textarea class="form-control" rows="3" id="textArea" name="Description"></textarea>
+                    <span class="help-block">Descripción general de la tarea</span>
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputProject" class="col-lg-2 control-label">Proyecto</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="inputProject" placeholder="Nombre del proyecto" name="Project">
+                    @Html.ValidationMessageFor(model => model.Project, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="selectPriority" class="col-lg-2 control-label">Prioridad</label>
+                <div class="col-lg-10">
+                    <h6> 1 max priority - 4 min priority</h6>
+                    <select class="form-control" id="selectPriority" name="Priority">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputDate" class="col-lg-2 control-label">Fecha</label>
+                <div class="col-lg-10">
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control"  } })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="reset" class="btn btn-default">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+}
+
+<br />
+<div>
+    @Html.ActionLink("Back to panel", "Index_user", "User")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

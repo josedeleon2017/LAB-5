@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LAB 5 - Tablas Hash y Colas de prioridad", "LAB 5 - Tablas Hash y Colas de prioridad.csproj", "{EEA1BD1D-FFA3-4806-8314-F2A17E74668F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoLinealStructures", "..\NoLinealStructures\NoLinealStructures.csproj", "{65FE71CE-32D1-4939-88D9-FF0D44E3EAC4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEA1BD1D-FFA3-4806-8314-F2A17E74668F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEA1BD1D-FFA3-4806-8314-F2A17E74668F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEA1BD1D-FFA3-4806-8314-F2A17E74668F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEA1BD1D-FFA3-4806-8314-F2A17E74668F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65FE71CE-32D1-4939-88D9-FF0D44E3EAC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65FE71CE-32D1-4939-88D9-FF0D44E3EAC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65FE71CE-32D1-4939-88D9-FF0D44E3EAC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65FE71CE-32D1-4939-88D9-FF0D44E3EAC4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12BE724D-CC22-43C4-B30C-21280BE1B410}
+	EndGlobalSection
+EndGlobal
