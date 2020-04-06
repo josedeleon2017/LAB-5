@@ -9,9 +9,11 @@ namespace NoLinealStructures.Interfaces
 {
     interface IHashTableStructure<T>
     {
-        void Add(T value);
-        int Find(T value);
-        void Remove(T value);
-
+        void Add(T value, int key);
+        T Find(int key, string value);
+        void Remove(T value, int key);
+        int GetHash(T value);
+        int Count();
+        void Clear();
     }
 }

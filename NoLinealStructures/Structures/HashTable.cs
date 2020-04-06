@@ -8,19 +8,80 @@ namespace NoLinealStructures.Structures
 {
     public class HashTable<T> : Interfaces.IHashTableStructure<T>
     {
-        public void Add(T value)
+        private List<T>[] Dictionary = new List<T>[10];
+        public Delegate GetKeyValue;
+
+        public void Add(T value, int key)
         {
-            throw new NotImplementedException();
+            if (Dictionary[key] == null)
+            {
+                Dictionary[key] = new List<T>();
+                Dictionary[key].Add(value);
+            }
+            else
+            {
+                Dictionary[key].Add(value);
+            }
         }
 
-        public int Find(T value)
+        public int Count()
         {
-            throw new NotImplementedException();
+            int elements = 0;
+            for(int i = 0; i < Dictionary.Length - 1; i++)
+            {
+                if (Dictionary[i] != null)
+                {
+                    elements += Dictionary[i].Count();
+                }               
+            }
+            return elements;
         }
 
-        public void Remove(T value)
+        public T Find(int key, string value)
         {
-            throw new NotImplementedException();
+            if ((string)GetKeyValue.DynamicInvoke(Dictionary[key].First()) == value)
+            {
+                return Dictionary[key].First();
+            }
+            else
+            {
+                for(int i = 0; i < Dictionary[key].Count(); i++)
+                {
+                    if((string)GetKeyValue.DynamicInvoke(Dictionary[key].ElementAt(i)) == value)
+                    {
+                        return Dictionary[key].ElementAt(i);
+                    }
+                }
+            }
+            return default;
+        }
+
+        public int GetHash(T value)
+        {
+            int HashCode = 0;
+            string Key = (string)GetKeyValue.DynamicInvoke(value);
+
+            for (int i = 0; i < Key.Length; i++)
+            {
+                HashCode += (int)Key.ElementAt(i);
+            }
+            return HashCode % 10;
+        }
+
+        public void Remove(T value, int key)
+        {
+            Dictionary[key].Remove(value);
+        }
+
+        public void Clear()
+        {
+            for (int i = 0; i < Dictionary.Length; i++)
+            {
+                if (Dictionary[i] != null)
+                {
+                    Dictionary[i] = null;
+                }
+            }
         }
     }
 }

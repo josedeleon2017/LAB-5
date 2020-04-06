@@ -87,3 +87,5 @@ C:\Users\José De León\Desktop\LAB 5\LAB 5 - Tablas Hash y Colas de prioridad\b
 C:\Users\José De León\Desktop\LAB 5\LAB 5 - Tablas Hash y Colas de prioridad\bin\PagedList.Mvc.dll
 C:\Users\José De León\Desktop\LAB 5\LAB 5 - Tablas Hash y Colas de prioridad\bin\PagedList.xml
 C:\Users\José De León\Desktop\LAB 5\LAB 5 - Tablas Hash y Colas de prioridad\bin\PagedList.Mvc.xml
+C:\Users\José De León\Desktop\LAB 5\LAB 5 - Tablas Hash y Colas de prioridad\bin\NoLinealStructures.dll
+C:\Users\José De León\Desktop\LAB 5\LAB 5 - Tablas Hash y Colas de prioridad\bin\NoLinealStructures.pdb

@@ -100,12 +100,18 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                 if (Storage.Instance.taskInserted)
                 {
                     ///<!--AGREGAR AQUI LA INSERCION EN LAS ESTRUCTURAS TEMPORALES-->
-                    ///Tabla_Hash.Add(Storage.Instance.currentTaskList.Last());
+                    TaskModel.HashTable_Add(Storage.Instance.currentTaskList.Last());
                     ///Monticulo.Add(Storage.Instance.currentTaskList.Last());
-
+                    
                     Storage.Instance.taskInserted = false;
-
                 }
+
+                var test = new TaskModel
+                {
+                    Title= "Donec Pharetra Magna Vestibulum",
+                };
+
+                TaskModel testFind = Storage.Instance.HashTable.Find(Storage.Instance.HashTable.GetHash(test), test.Title);
                 return View();
             }
             catch 
@@ -124,7 +130,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
         public ActionResult Login()
         {
             ///<!--VACIA TODAS LAS ESTRUCTURAS TEMPORALES-->
-            ///Storage.Instance.Tabla_Hash = null;
+            Storage.Instance.HashTable.Clear();
             ///Storage.Instance.Monticulo = null;
             Storage.Instance.currentTaskList.Clear();          
             
@@ -148,6 +154,11 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                     if (collection["Password"].ToUpper() == currentUser.Password.ToUpper())
                     {
                         Storage.Instance.currentTaskList = Storage.Instance.globalTaskList.Where(x => x.Developer.ToUpper() == Storage.Instance.currentUser).ToList();
+
+                        for(int i = 0; i < Storage.Instance.currentTaskList.Count(); i++)
+                        {
+                            TaskModel.HashTable_Add(Storage.Instance.currentTaskList.ElementAt(i));
+                        }     
                         return RedirectToAction("Index_user", "User");
                     }
                 }

@@ -108,7 +108,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                     Project = collection["Project"],
                     Priority = Convert.ToInt32(collection["Priority"]),
                     Date = Convert.ToDateTime(collection["Date"]),
-                    Developer = Storage.Instance.currentUser,
+                    Developer = Storage.Instance.currentUser.ToLower(),
                 };
 
                 if (task.Date < DateTime.Now)
@@ -125,6 +125,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                     return View("Error");
                 }
 
+                ///<!--AGREGA LA NUEVA TAREA A LAS ESTRUCTURAS-->
                 Storage.Instance.currentTaskList.Add(task);
 
                 ///<!--AGREGAR AQUI LA INSERCION EN EL ARCHIVO-->                                           

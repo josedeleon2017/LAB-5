@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using LAB_5___Tablas_Hash_y_Colas_de_prioridad.Helpers;
 
 namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models
 {
@@ -26,5 +27,22 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models
         [Required]
         public string Developer { get; set; }
 
+
+        public static void HashTable_Add(TaskModel task)
+        {
+            Storage.Instance.HashTable.GetKeyValue = KeyConverter;
+            Storage.Instance.HashTable.Add(task , Storage.Instance.HashTable.GetHash(task));
+        }
+
+        /// <summary>
+        /// Delegado para obtener la llave del T value
+        /// </summary>
+        public static Converter<TaskModel, string> KeyConverter = delegate (TaskModel task)
+        {
+            return task.Title;
+        };
+
+        
+        
     }
 }

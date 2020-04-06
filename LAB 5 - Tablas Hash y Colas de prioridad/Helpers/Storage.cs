@@ -19,8 +19,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Helpers
             }
         }
 
-                        ///<!--MANEJO DEL CSV-->
-
+        ///<!--MANEJO DEL CSV-->
         ///<summary>
         ///Validador primera carga de users_data.cvs
         ///</summary>
@@ -37,7 +36,6 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Helpers
         public bool csvModified = false;
 
         ///<!--MANEJO DEL LOGIN-->
-
         /// <summary>
         /// Lista de usuarios para el Login
         /// </summary>
@@ -48,8 +46,8 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Helpers
         /// </summary>
         public string currentUser = null;
 
-                        ///<!--MANEJO DE LAS TAREAS-->
-                    
+
+        ///<!--MANEJO DE LAS TAREAS-->    
         /// <summary>
         /// Lista global de todas las tareas, se lee en el csv
         /// </summary>
@@ -65,7 +63,11 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Helpers
         ///</summary>
         public bool taskInserted = false;
 
-        
+        ///<!--ESTRUCTURAS-->
+        ///<summary>
+        ///Tabla Hash generica
+        ///</summary>
+        public NoLinealStructures.Structures.HashTable<TaskModel> HashTable = new NoLinealStructures.Structures.HashTable<TaskModel>();
 
     }
 }
