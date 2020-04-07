@@ -179,6 +179,9 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Index_admin.cshtml" />
     <Content Include="Views\Task\WatchTasks_user.cshtml" />
+    <Content Include="Views\Task\WatchTasks_general.cshtml" />
+    <Content Include="Views\Task\GenerateTask.cshtml" />
+    <Content Include="Views\Task\WatchDevelopers_admin.cshtml" />
     <Content Include="Views\Task\WatchTasks_admin.cshtml" />
   </ItemGroup>
   <ItemGroup>

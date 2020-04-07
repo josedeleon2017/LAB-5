@@ -4,10 +4,12 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using LAB_5___Tablas_Hash_y_Colas_de_prioridad.Helpers;
+using System.IO;
+
 
 namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models
 {
-    public class TaskModel
+    public class TaskModel 
     {
         [Required]
         public string Title { get; set; }
@@ -27,11 +29,55 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models
         [Required]
         public string Developer { get; set; }
 
-
-        public static void HashTable_Add(TaskModel task)
+        /// <summary>
+        /// Metodo para guardar objeto en la Tabla Hash
+        /// </summary>
+        public static void Save_HashTable(TaskModel task)
         {
             Storage.Instance.HashTable.GetKeyValue = KeyConverter;
             Storage.Instance.HashTable.Add(task , Storage.Instance.HashTable.GetHash(task));
+        }
+
+        /// <summary>
+        /// Metodo para registrar el objeto en el CSV
+        /// </summary>
+        public static bool saveCSV(TaskModel task)
+        {
+            try
+            {
+                //CAMBIAR
+                string fullpath = "C:\\Users\\José De León\\Desktop\\LAB 5\\LAB 5 - Tablas Hash y Colas de prioridad\\App_Data\\tasks_data.csv";
+
+                StreamWriter streamWriter = File.AppendText(fullpath);
+
+                string[] row = new string[6];
+                row[0] = task.Title;
+                row[1] = '"' + task.Description + '"';
+                row[2] = task.Project;
+                row[3] = Convert.ToString(task.Priority);
+                row[4] = task.Date.ToShortDateString();
+                row[5] = task.Developer;
+
+                string lineToAdd = "\n";
+                for (int i = 0; i < 5; i++)
+                {
+                    lineToAdd += row[i] + ";";
+
+                    if(i == 4)
+                    {
+                        lineToAdd += row[5];
+                        i++;
+                    }
+                }
+                streamWriter.WriteLine(lineToAdd);
+                streamWriter.Close();
+
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
         }
 
         /// <summary>

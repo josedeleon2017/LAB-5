@@ -6,89 +6,13 @@ using System.Web.Mvc;
 using LAB_5___Tablas_Hash_y_Colas_de_prioridad.Helpers;
 using LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models;
 using PagedList;
+using System.IO;
 
 namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
 {
     public class TaskController : Controller
     {
-        // GET: Task
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: Task/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Task/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Task/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Task/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Task/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Task/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Task/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+        
         public ActionResult CreateTask()
         {
             ViewBag.Message = Storage.Instance.currentUser;
@@ -120,18 +44,24 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                     return View("Error");
                 }
                 ///<!--VALIDA QUE EL TITULO NO EXISTA EN LA LISTA GLOBAL NI EN LA LISTA TEMPORAL-->
-                if (Storage.Instance.globalTaskList.Where(x => x.Title == task.Title).Count() != 0 && Storage.Instance.currentTaskList.Where(x => x.Title == task.Title).Count() != 0)
+                if (Storage.Instance.globalTaskList.Where(x => x.Title == task.Title).Count() != 0)
                 {
                     return View("Error");
                 }
 
                 ///<!--AGREGA LA NUEVA TAREA A LAS ESTRUCTURAS-->
-                Storage.Instance.currentTaskList.Add(task);
+                TaskModel.Save_HashTable(task);
+                ///TaskModel.Save_Heap(task);
 
-                ///<!--AGREGAR AQUI LA INSERCION EN EL ARCHIVO-->                                           
-
-                Storage.Instance.taskInserted = true;
-                Storage.Instance.csvModified = true;
+                ///<!--AGREGAR AQUI LA INSERCION EN EL ARCHIVO--> 
+                if (TaskModel.saveCSV(task))
+                {
+                    Storage.Instance.csvModified = true;
+                }
+                else
+                {
+                    return View("Error");
+                }
 
                 return RedirectToAction("Index_user", "User");
             }
@@ -147,16 +77,75 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
             int pageSize = 5;
             int pageNumber = (page ?? 1);
 
-            return View(Storage.Instance.currentTaskList.OrderBy(x => x.Priority).ToPagedList<TaskModel>(pageNumber, pageSize));
+            return View(Storage.Instance.HashTable.ToList().OrderBy(x => x.Priority).ToPagedList<TaskModel>(pageNumber, pageSize));
         }
 
-        public ActionResult WatchTasks_admin(int? page)
+        public ActionResult WatchTasks_general(int? page)
         {
             ViewBag.Message = Storage.Instance.currentUser;
             int pageSize = 5;
             int pageNumber = (page ?? 1);
 
             return View(Storage.Instance.globalTaskList.OrderBy(x => x.Priority).OrderBy(x => x.Developer).ToPagedList<TaskModel>(pageNumber, pageSize));
+        }
+
+        public ActionResult GenerateTask()
+        {
+            ViewBag.Message = Storage.Instance.currentUser;
+            Storage.Instance.taskResult.Clear();
+
+            return View(Storage.Instance.taskResult);
+        }
+
+        [HttpPost]
+        public ActionResult GenerateTask(FormCollection collection)
+        {
+            ViewBag.Message = Storage.Instance.currentUser;
+
+            Storage.Instance.taskResult.Clear();
+            ///<!--SACA EL DE MAYOR PRIORIDAD DEL HEAP-->
+            ///string keyTitle = Storage.Instance.Heap.Shift().Title
+            ///Esta llave entra a buscar en la Tabla Hash y solo se muestra esa tarea en la View
+
+            ///<!--EJEMPLO-->
+            string keyTitle = "CSV 1";
+            List<TaskModel> OneElementList = new List<TaskModel>();
+            if (keyTitle == "" || keyTitle == null)
+            {
+                return View("Error");
+            }
+            else
+            {
+                var TaskToFind = new TaskModel
+                {
+                    Title = keyTitle,
+                };
+                ///<!--BUSQUEDA EN TABLA HASH-->
+                Storage.Instance.taskResult.Add(Storage.Instance.HashTable.Find(Storage.Instance.HashTable.GetHash(TaskToFind), TaskToFind.Title));
+            }
+
+            return View(Storage.Instance.taskResult);
+        }
+
+        public ActionResult WatchDevelopers_admin(int? page)
+        {
+            ViewBag.Message = Storage.Instance.currentUser;
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+            return View(Storage.Instance.usersList.ToPagedList<UserModel>(pageNumber, pageSize));
+        }
+
+
+        public ActionResult WatchTasks_admin(string id, int? page)
+        {
+            ViewBag.Message = Storage.Instance.currentUser;
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+            Storage.Instance.taskResult.Clear();
+            Storage.Instance.taskResult = Storage.Instance.globalTaskList.Where(x => x.Developer == id).OrderBy(x => x.Priority).ToList();
+            return View(Storage.Instance.taskResult.ToPagedList<TaskModel>(pageNumber, pageSize));
         }
     }
 }

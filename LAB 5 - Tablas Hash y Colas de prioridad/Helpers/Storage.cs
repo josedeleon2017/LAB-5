@@ -31,7 +31,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Helpers
         public bool first_load_tasks = true;
 
         ///<summary>
-        ///Validador primera carga de tasks_data.cvs
+        ///Validador tasks_data.csv modificado
         ///</summary>
         public bool csvModified = false;
 
@@ -49,25 +49,26 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Helpers
 
         ///<!--MANEJO DE LAS TAREAS-->    
         /// <summary>
-        /// Lista global de todas las tareas, se lee en el csv
+        /// Lista global de todas las tareas, se lee de tasks_data.csv
         /// </summary>
         public List<TaskModel> globalTaskList = new List<TaskModel>();
 
-        ///<summary>
-        ///Lista temporal de tareas del developer especificado
-        ///</summary>
-        public List<TaskModel> currentTaskList = new List<TaskModel>();
-
-        ///<summary>
-        ///Validador de nuevo ingreso 
-        ///</summary>
-        public bool taskInserted = false;
 
         ///<!--ESTRUCTURAS-->
         ///<summary>
         ///Tabla Hash generica
         ///</summary>
         public NoLinealStructures.Structures.HashTable<TaskModel> HashTable = new NoLinealStructures.Structures.HashTable<TaskModel>();
+
+        ///<summary>
+        ///Heap generico
+        ///</summary>
+        //public NoLinealStructures.Structures.Heap<TaskModel> Heap = new NoLinealStructures.Structures.Heap<TaskModel>();
+
+        ///<summary>
+        ///Resultado final de la busqueda
+        ///</summary>
+        public List<TaskModel> taskResult = new List<TaskModel>();
 
     }
 }

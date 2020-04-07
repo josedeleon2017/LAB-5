@@ -5,12 +5,15 @@
     ViewBag.Title = "WatchTasks_admin";
 }
 
-<h2>Tasks Developer</h2>
+<h2>General Tasks</h2>
 <h4>@ViewBag.Message</h4>
 
 <br />
 <table class="table">
     <tr>
+        <th>
+            Developer
+        </th>
         <th>
             Title
         </th>
@@ -26,14 +29,14 @@
         <th>
             Date
         </th>
-        <th>
-            Developer
-        </th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Developer)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
@@ -49,14 +52,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Developer)
-            </td>
         </tr>
     }
-
 </table>
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("WatchTasks_admin", new { page }))
+@Html.PagedListPager(Model, page => Url.Action("WatchTasks_general", new { page }))
 
-@Html.ActionLink("Back to task management", "WatchDevelopers_admin", "Task")
+<div>
+    @Html.ActionLink("Back to panel", "Index_admin", "User")
+</div>

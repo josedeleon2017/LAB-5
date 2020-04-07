@@ -1,21 +1,29 @@
-﻿@model PagedList.IPagedList<LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models.TaskModel>
-@using PagedList.Mvc;
+﻿@model IEnumerable<LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models.TaskModel>
 
 @{
-    ViewBag.Title = "WatchTasks_admin";
+    ViewBag.Title = "GenerateTask";
 }
 
-<h2>Tasks Developer</h2>
+<h2>Generate Task</h2>
 <h4>@ViewBag.Message</h4>
-
 <br />
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+            <button type="submit" class="btn btn-primary">Generar</button>
+        </div>
+    </div>
+}
+
 <table class="table">
     <tr>
         <th>
             Title
         </th>
         <th>
-            Description
+            Decription
         </th>
         <th>
             Project
@@ -25,9 +33,6 @@
         </th>
         <th>
             Date
-        </th>
-        <th>
-            Developer
         </th>
     </tr>
 
@@ -49,14 +54,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Developer)
-            </td>
         </tr>
     }
 
 </table>
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("WatchTasks_admin", new { page }))
 
-@Html.ActionLink("Back to task management", "WatchDevelopers_admin", "Task")
+<br />
+<div>
+    @Html.ActionLink("Back to panel", "Index_user", "User")
+</div>

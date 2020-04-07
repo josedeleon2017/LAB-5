@@ -7,6 +7,13 @@
 <h1>Project Manager Panel</h1>
 <h4>@ViewBag.Message</h4>
 
-<h3>Ver tareas de Developers</h3>
-@Html.ActionLink("Ver tareas", "WatchTasks_admin", "Task")
+<hr />
+<h3>Ver tareas por developer</h3>
+@Html.ActionLink("Ver developers en específico", "WatchDevelopers_admin", "Task")
 
+<h3>Ver todas las tareas</h3>
+@Html.ActionLink("Ver todas las tareas en general", "WatchTasks_general", "Task")
+
+<br />
+<hr />
+@Html.ActionLink("Back to principal", "Exit", "User")

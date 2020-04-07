@@ -7,12 +7,17 @@
 <h1>Developer Panel</h1>
 <h4>@ViewBag.Message</h4>
 
+<hr />
 <h3>Crear nueva tarea</h3>
 @Html.ActionLink("Crear nueva tarea", "CreateTask", "Task")
 
 <h3>Obtener nueva tarea</h3>
 <h6>Tabla Hash y Cola de prioridad</h6>
-@Html.ActionLink("Obtener nueva tarea", "FindTask", "Task")
+@Html.ActionLink("Obtener nueva tarea", "GenerateTask", "Task")
 
 <h3>Ver todas las tareas</h3>
 @Html.ActionLink("Ver tareas", "WatchTasks_user", "Task")
+
+<br />
+<hr />
+@Html.ActionLink("Back to principal", "Exit", "User")

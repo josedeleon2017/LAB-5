@@ -15,5 +15,7 @@ namespace NoLinealStructures.Interfaces
         int GetHash(T value);
         int Count();
         void Clear();
+        List<T> ToList();
+
     }
 }

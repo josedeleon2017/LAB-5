@@ -44,7 +44,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                                 };
                                 Storage.Instance.usersList.Add(user);
                             }
-                        }
+                        }                      
                     }
                     Storage.Instance.first_load_users = false;
                 }
@@ -88,6 +88,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                                 Storage.Instance.globalTaskList.Add(task);
                             }
                         }
+                        fileStream.Close();
                     }                   
                     Storage.Instance.first_load_tasks = false;   
                 }

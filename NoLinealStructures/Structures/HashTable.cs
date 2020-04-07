@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NoLinealStructures.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -83,5 +84,20 @@ namespace NoLinealStructures.Structures
                 }
             }
         }
+
+        public List<T> ToList()
+        {
+            List<T> currentList = new List<T>();
+
+            for (int i = 0; i < Dictionary.Length; i++)
+            {
+                if (Dictionary[i] != null)
+                {
+                   currentList = currentList.Union(Dictionary[i].ToList()).ToList();
+                }                
+            }
+            return currentList;
+        }
+
     }
 }

@@ -1,0 +1,43 @@
+﻿@model PagedList.IPagedList<LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models.UserModel>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "WatchDevelopers_admin";
+}
+
+<h2>Task Management</h2>
+<h4>@ViewBag.Message</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Password
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                <button type="button" onclick="location.href='@Url.Action("WatchTasks_admin","Task",new { id = item.Id })'" class="btn btn-default text-center btn-sm">Tasks</button>
+            </td>
+        </tr>
+    }
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("WatchDevelopers_admin", new { page }))
+
+<div>
+    @Html.ActionLink("Back to panel", "Index_admin", "User")
+</div>
