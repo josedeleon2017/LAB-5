@@ -19,10 +19,6 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                 if (Storage.Instance.first_load_users)
                 {
                     string Path_users = Server.MapPath("~/App_Data/");
-                    if (!Directory.Exists(Path_users))
-                    {
-                        Directory.CreateDirectory(Path_users);
-                    }
 
                     string FilePath_users = Path_users + "users_data.csv";
                     using (var fileStream = new FileStream(FilePath_users, FileMode.Open))
@@ -44,7 +40,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                                 };
                                 Storage.Instance.usersList.Add(user);
                             }
-                        }                      
+                        }
                     }
                     Storage.Instance.first_load_users = false;
                 }
@@ -58,10 +54,6 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                     }
 
                     string Path_tasks = Server.MapPath("~/App_Data/");
-                    if (!Directory.Exists(Path_tasks))
-                    {
-                        Directory.CreateDirectory(Path_tasks);
-                    }
 
                     string FilePath_tasks = Path_tasks + "tasks_data.csv";
                     using (var fileStream = new FileStream(FilePath_tasks, FileMode.Open))
@@ -88,7 +80,6 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                                 Storage.Instance.globalTaskList.Add(task);
                             }
                         }
-                        fileStream.Close();
                     }                   
                     Storage.Instance.first_load_tasks = false;   
                 }

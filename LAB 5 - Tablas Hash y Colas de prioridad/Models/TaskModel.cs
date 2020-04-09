@@ -41,14 +41,11 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models
         /// <summary>
         /// Metodo para registrar el objeto en el CSV
         /// </summary>
-        public static bool saveCSV(TaskModel task)
+        public static bool saveCSV(TaskModel task, string pathcsv)
         {
             try
             {
-                //CAMBIAR
-                string fullpath = "C:\\Users\\José De León\\Desktop\\LAB 5\\LAB 5 - Tablas Hash y Colas de prioridad\\App_Data\\tasks_data.csv";
-
-                StreamWriter streamWriter = File.AppendText(fullpath);
+                StreamWriter streamWriter = File.AppendText(pathcsv);
 
                 string[] row = new string[6];
                 row[0] = task.Title;
@@ -69,8 +66,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models
                         i++;
                     }
                 }
-                streamWriter.WriteLine(lineToAdd);
-                streamWriter.Close();
+                streamWriter.Write(lineToAdd);
 
                 return true;
             }
