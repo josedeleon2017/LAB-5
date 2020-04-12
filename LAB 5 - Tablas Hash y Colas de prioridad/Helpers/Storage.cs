@@ -63,7 +63,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Helpers
         ///<summary>
         ///Heap generico
         ///</summary>
-        //public NoLinealStructures.Structures.Heap<TaskModel> Heap = new NoLinealStructures.Structures.Heap<TaskModel>();
+        public NoLinealStructures.Structures.Heap<string> Heap = new NoLinealStructures.Structures.Heap<string>();
 
         ///<summary>
         ///Resultado final de la busqueda

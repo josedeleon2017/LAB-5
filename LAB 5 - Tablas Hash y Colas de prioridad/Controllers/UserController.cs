@@ -38,7 +38,6 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
             ///<!--VACIA TODAS LAS ESTRUCTURAS TEMPORALES-->
             Storage.Instance.HashTable.Clear();
             ///Storage.Instance.Heap.Clear();          
-            
             return View();   
         }
 
@@ -64,6 +63,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                         for(int i = 0; i < FilteredList.Count(); i++)
                         {
                             TaskModel.Save_HashTable(FilteredList.ElementAt(i));
+                            TaskModel.Save_Heap(FilteredList.ElementAt(i).Title);
                         }     
                         return RedirectToAction("Index_user", "User");
                     }

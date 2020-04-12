@@ -51,7 +51,8 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
 
                 ///<!--AGREGA LA NUEVA TAREA A LAS ESTRUCTURAS-->
                 TaskModel.Save_HashTable(task);
-                ///TaskModel.Save_Heap(task);
+                TaskModel.Save_Heap(task.Title);
+                ///TaskModel.Save_Heap(task.title);
 
                 ///<!--AGREGAR AQUI LA INSERCION EN EL ARCHIVO--> 
                 string Path_csv = Server.MapPath("~/App_Data/");

@@ -38,6 +38,13 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models
             Storage.Instance.HashTable.Add(task , Storage.Instance.HashTable.GetHash(task));
         }
 
+        public static void Save_Heap(string Title)
+        {
+            Storage.Instance.Heap.GetPriorityValue = GetPriorityValue;
+            Storage.Instance.Heap.Comparer = TitleComparison;
+            Storage.Instance.Heap.Add(Title);
+        }
+
         /// <summary>
         /// Metodo para registrar el objeto en el CSV
         /// </summary>
@@ -79,12 +86,29 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models
         /// <summary>
         /// Delegado para obtener la llave del T value
         /// </summary>
+        /// 
         public static Converter<TaskModel, string> KeyConverter = delegate (TaskModel task)
         {
             return task.Title;
         };
 
-        
-        
+        public static Func<string, int> GetPriorityValue = delegate (string Title)
+         {
+             int HashCode = 0;
+             for (int i = 0; i < Title.Length; i++)
+             {
+                 HashCode += (int)Title.ElementAt(i);
+             }
+             HashCode %= 10;
+             TaskModel Temp = Storage.Instance.HashTable.Find(HashCode, Title);
+             return Temp.Priority;
+         };
+
+        public static Comparison<string> TitleComparison = delegate (string Title1, string Title2)
+        {
+            return Title1.CompareTo(Title2);
+        };
+
+
     }
 }
