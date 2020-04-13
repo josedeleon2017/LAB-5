@@ -44,7 +44,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                     return View("Error");
                 }
                 ///<!--VALIDA QUE EL TITULO NO EXISTA EN LA LISTA GLOBAL NI EN LA LISTA TEMPORAL-->
-                if (Storage.Instance.globalTaskList.Where(x => x.Title == task.Title).Count() != 0)
+                if (Storage.Instance.HashTable.ToList().Where(x => x.Title == task.Title).Count() != 0)
                 {
                     return View("Error");
                 }
@@ -52,7 +52,6 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                 ///<!--AGREGA LA NUEVA TAREA A LAS ESTRUCTURAS-->
                 TaskModel.Save_HashTable(task);
                 TaskModel.Save_Heap(task.Title);
-                ///TaskModel.Save_Heap(task.title);
 
                 ///<!--AGREGAR AQUI LA INSERCION EN EL ARCHIVO--> 
                 string Path_csv = Server.MapPath("~/App_Data/");
@@ -107,11 +106,8 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
 
             Storage.Instance.taskResult.Clear();
             ///<!--SACA EL DE MAYOR PRIORIDAD DEL HEAP-->
-            ///string keyTitle = Storage.Instance.Heap.Shift().Title
-            ///Esta llave entra a buscar en la Tabla Hash y solo se muestra esa tarea en la View
-
-            ///<!--EJEMPLO-->
-            string keyTitle = "CSV 1";
+            string keyTitle = Storage.Instance.Heap.RemoveRoot();
+         
             List<TaskModel> OneElementList = new List<TaskModel>();
             if (keyTitle == "" || keyTitle == null)
             {

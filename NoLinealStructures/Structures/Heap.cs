@@ -14,7 +14,6 @@ namespace NoLinealStructures.Structures
         public static int Count = 0;
         public Delegate GetPriorityValue;
         public Delegate Comparer;
-
         public void Add(T value)
         {
             Node<T> node = new Node<T>(value);
@@ -23,7 +22,6 @@ namespace NoLinealStructures.Structures
                 Root = node;
                 Count++;
             }
-            // int s = (int)GetPriorityValue.DynamicInvoke(value);
             else
             {
                 if (Count == 1)
@@ -105,14 +103,90 @@ namespace NoLinealStructures.Structures
             throw new NotImplementedException();
         }
 
-        public void RemoveRoot(T value)
+        public void Clear()
         {
-            throw new NotImplementedException();
+            Root = null;
+            Count = 0;
+        }
+
+        public T RemoveRoot()
+        {
+            if (Count == 0)
+            {
+                return default;
+            }
+            else if (Count == 1)
+            {
+                T result = Root.Value;
+                Clear();
+                return result;
+            }
+            else
+            {
+                T result = Root.Value;
+                Root.Value = GetLastAddedNode().Value;
+                Node<T> ParentOfLast = GetParent(GetLastAddedNode());
+                if (ParentOfLast.Right != null)
+                {
+                    ParentOfLast.Right = null;
+                }
+                else if (ParentOfLast.Right == null)
+                {
+                    ParentOfLast.Left = null;
+                }
+                Count--;
+                ReSort();
+                return result;
+            }
         }
 
         private void ReSort()
         {
-            throw new NotImplementedException();
+            Node<T> Temp = Root;
+            while (Temp.Left != null && Temp.Right != null)
+            {
+                if (Temp.Right == null)
+                {
+                    if ((int)GetPriorityValue.DynamicInvoke(Temp.Value) > (int)GetPriorityValue.DynamicInvoke(Temp.Left.Value))
+                    {
+                        SwapNodeValue(Temp, Temp.Left);
+                    }
+                    else
+                    {
+                        //
+                        break;
+                    }
+                }
+                else
+                {
+                    if ((int)GetPriorityValue.DynamicInvoke(Temp.Left.Value) <= (int)GetPriorityValue.DynamicInvoke(Temp.Right.Value))
+                    {
+                        if ((int)GetPriorityValue.DynamicInvoke(Temp.Value) > (int)GetPriorityValue.DynamicInvoke(Temp.Left.Value))
+                        {
+                            SwapNodeValue(Temp, Temp.Left);
+                            Temp = Temp.Left;
+                        }
+                        else
+                        {
+                            //
+                            break;
+                        }
+                    }
+                    else if ((int)GetPriorityValue.DynamicInvoke(Temp.Right.Value) < (int)GetPriorityValue.DynamicInvoke(Temp.Left.Value))
+                    {
+                        if ((int)GetPriorityValue.DynamicInvoke(Temp.Value) > (int)GetPriorityValue.DynamicInvoke(Temp.Right.Value))
+                        {
+                            SwapNodeValue(Temp, Temp.Right);
+                            Temp = Temp.Right;
+                        }
+                        else
+                        {
+                            //
+                            break;
+                        }
+                    }
+                }
+            }
         }
         private string GetAddress(int node)
         {
@@ -124,6 +198,44 @@ namespace NoLinealStructures.Structures
             Node<T> temp = new Node<T>(Parent.Value);
             Parent.Value = Next.Value;
             Next.Value = temp.Value;
+        }
+
+        private Node<T> GetLastAddedNode()
+        {
+            Node<T> Last = Root;
+            if (Count == 0)
+            {
+                return null;
+            }
+            else if (Count == 1)
+            {
+                return Last;
+            }
+            else if (Count == 2)
+            {
+                return Root.Left;
+            }
+            else if (Count == 3)
+            {
+                return Root.Right;
+            }
+            else
+            {
+                string address = GetAddress(Count);
+                Node<T> Node = Root;
+                for (int i = 0; i < address.Length; i++)
+                {
+                    if (address[i] == '0')
+                    {
+                        Node = Node.Left;
+                    }
+                    else if (address[i] == '1')
+                    {
+                        Node = Node.Right;
+                    }
+                }
+                return Node;
+            }
         }
         private Node<T> GetParent(Node<T> Next)
         {

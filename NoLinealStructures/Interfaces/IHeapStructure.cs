@@ -11,6 +11,6 @@ namespace NoLinealStructures.Interfaces
     {
         void Add(T value);
         int Find(T value);
-        void RemoveRoot(T value);
+        T RemoveRoot();
     }
 }

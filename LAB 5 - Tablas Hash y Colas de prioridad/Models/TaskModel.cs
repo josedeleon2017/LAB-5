@@ -74,7 +74,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models
                     }
                 }
                 streamWriter.Write(lineToAdd);
-
+                streamWriter.Close();
                 return true;
             }
             catch 
