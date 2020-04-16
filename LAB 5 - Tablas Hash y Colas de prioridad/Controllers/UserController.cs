@@ -16,8 +16,8 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
         public ActionResult Index_user()
         {
             try
-            {
-                ViewBag.Message = Storage.Instance.currentUser;              
+            { 
+                ViewBag.Message = Storage.Instance.currentUser;
                 return View();
             }
             catch 
@@ -34,10 +34,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
         }
 
         public ActionResult Login()
-        {
-            ///<!--VACIA TODAS LAS ESTRUCTURAS TEMPORALES-->
-            Storage.Instance.HashTable.Clear();
-            Storage.Instance.Heap.Clear();          
+        {   
             return View();   
         }
 
@@ -60,17 +57,16 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                         List<TaskModel> FilteredList = new List<TaskModel>();
                         FilteredList = Storage.Instance.globalTaskList.Where(x => x.Developer.ToUpper() == Storage.Instance.currentUser).ToList();
 
-                        for(int i = 0; i < FilteredList.Count(); i++)
+                        ///<!--VACIA TODAS LAS ESTRUCTURAS TEMPORALES-->
+                        Storage.Instance.HashTable.Clear();
+                        Storage.Instance.Heap.Clear();
+                        Storage.Instance.taskResult.Clear();
+
+                        for (int i = 0; i < FilteredList.Count(); i++)
                         {
                             TaskModel.Save_HashTable(FilteredList.ElementAt(i));
                             TaskModel.Save_Heap(FilteredList.ElementAt(i).Title);
                         }
-                        /*
-                        for (int i = 0; i < 14; i++)
-                        {
-                            string s = Storage.Instance.Heap.RemoveRoot();
-                            string res = s;
-                        }*/
                         return RedirectToAction("Index_user", "User");
                     }
                 }

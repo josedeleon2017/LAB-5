@@ -55,7 +55,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
 
                     string Path_tasks = Server.MapPath("~/App_Data/");
 
-                    string FilePath_tasks = Path_tasks + "tasks_data.csv";
+                    string FilePath_tasks = Path_tasks + "final_data.csv";
                     using (var fileStream = new FileStream(FilePath_tasks, FileMode.Open))
                     {
                         using (var streamReader = new StreamReader(fileStream))
@@ -81,8 +81,9 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                             }
                         }
                     }                   
-                    Storage.Instance.first_load_tasks = false;   
+                    Storage.Instance.first_load_tasks = false;                   
                 }
+                ViewBag.Message = Storage.Instance.globalTaskList.Count(); 
                 return View();
             }
             catch 

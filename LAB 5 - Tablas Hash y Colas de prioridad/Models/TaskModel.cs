@@ -48,7 +48,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models
         /// <summary>
         /// Metodo para registrar el objeto en el CSV
         /// </summary>
-        public static bool saveCSV(TaskModel task, string pathcsv)
+        public static bool SaveCSV(TaskModel task, string pathcsv)
         {
             try
             {
@@ -78,6 +78,54 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models
                 return true;
             }
             catch 
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Metodo para sobre escribir por completo el csv con las modificaciones de la lista global
+        /// </summary>
+        /// <param name="pathcsv"></param>
+        public static bool WriteCSV(string pathcsv)
+        {
+            try
+            {
+                StreamWriter streamWriter = new StreamWriter(pathcsv);
+                string header = "Title;Description;Project;Priority;Date;Developer";
+                streamWriter.Write(header);
+                streamWriter.Close();
+
+                for (int i = 0; i < Storage.Instance.globalTaskList.Count() ; i++)
+                {
+                    StreamWriter streamOverWriter = File.AppendText(pathcsv);
+                    TaskModel currentTask = Storage.Instance.globalTaskList.ElementAt(i);
+
+                    string[] row = new string[6];
+                    row[0] = currentTask.Title;
+                    row[1] = currentTask.Description;
+                    row[2] = currentTask.Project;
+                    row[3] = Convert.ToString(currentTask.Priority);
+                    row[4] = currentTask.Date.ToShortDateString();
+                    row[5] = currentTask.Developer;
+
+                    string lineToAdd = "\n";
+                    for (int j = 0; j < 5; j++)
+                    {
+                        lineToAdd += row[j] + ";";
+
+                        if (j == 4)
+                        {
+                            lineToAdd += row[5];
+                            j++;
+                        }
+                    }
+                    streamOverWriter.Write(lineToAdd);
+                    streamOverWriter.Close();
+                }
+                return true;
+            }
+            catch
             {
                 return false;
             }

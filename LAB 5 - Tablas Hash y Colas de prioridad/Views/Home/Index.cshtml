@@ -1,11 +1,21 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Index";
 }
 
-<div class="jumbotron">
 
+<div class="alert alert-dismissible alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>BIENVENIDO</strong>
+    <br />
+    <div onclick="location.href='@Url.Action("Login","User")'">
+        Datos cargados exitosamente... <br />
+    </div>
+</div>
+
+<div class="jumbotron">
     <h1>LAB 5</h1>
     <p class="lead">“Tablas Hash y colas de prioridad”</p>
+
     <p>
         <b>
             <em>José Vinicio De León 1072619</em>
@@ -19,9 +29,11 @@
         <li>Implementación y uso de tablas hash.</li>
         <li>Utilizar y complementar ambas estructuras de datos en un sistema funcional.</li>
     </ul>
+
     <br />
 
     <div class="text-center">
+        <h4><b><span class="badge">@ViewBag.Message</span> TAREAS</b></h4>
         <button type="button" onclick="location.href='@Url.Action("Login","User")'" class="btn btn-default text-center">Login</button>
     </div>
 

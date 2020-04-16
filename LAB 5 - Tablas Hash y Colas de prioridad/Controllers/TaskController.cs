@@ -43,7 +43,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                 {
                     return View("Error");
                 }
-                ///<!--VALIDA QUE EL TITULO NO EXISTA EN LA LISTA GLOBAL NI EN LA LISTA TEMPORAL-->
+                ///<!--VALIDA QUE EL TITULO NO EXISTA EN LA LISTA TEMPORAL-->
                 if (Storage.Instance.HashTable.ToList().Where(x => x.Title == task.Title).Count() != 0)
                 {
                     return View("Error");
@@ -55,8 +55,8 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
 
                 ///<!--AGREGAR AQUI LA INSERCION EN EL ARCHIVO--> 
                 string Path_csv = Server.MapPath("~/App_Data/");
-                string FilePath_csv = Path_csv + "tasks_data.csv";
-                if (TaskModel.saveCSV(task, FilePath_csv))
+                string FilePath_csv = Path_csv + "final_data.csv";
+                if (TaskModel.SaveCSV(task, FilePath_csv))
                 {
                     Storage.Instance.csvModified = true;
                 }
@@ -93,7 +93,7 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
 
         public ActionResult GenerateTask()
         {
-            ViewBag.Message = Storage.Instance.currentUser;
+            ViewBag.Message = Storage.Instance.currentUser + "  [" + Storage.Instance.HashTable.Count() + "]  ";
             Storage.Instance.taskResult.Clear();
 
             return View(Storage.Instance.taskResult);
@@ -102,16 +102,14 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
         [HttpPost]
         public ActionResult GenerateTask(FormCollection collection)
         {
-            ViewBag.Message = Storage.Instance.currentUser;
-
+            ViewBag.Message = Storage.Instance.currentUser + "  [" + Storage.Instance.HashTable.Count() + "]  ";
             Storage.Instance.taskResult.Clear();
+
             ///<!--SACA EL DE MAYOR PRIORIDAD DEL HEAP-->
             string keyTitle = Storage.Instance.Heap.RemoveRoot();
-         
-            List<TaskModel> OneElementList = new List<TaskModel>();
-            if (keyTitle == "" || keyTitle == null)
+            if (keyTitle == " " || keyTitle == null)
             {
-                return View("Error");
+                return RedirectToAction("Index_user", "User");
             }
             else
             {
@@ -121,9 +119,26 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Controllers
                 };
                 ///<!--BUSQUEDA EN TABLA HASH-->
                 Storage.Instance.taskResult.Add(Storage.Instance.HashTable.Find(Storage.Instance.HashTable.GetHash(TaskToFind), TaskToFind.Title));
-            }
 
-            return View(Storage.Instance.taskResult);
+                ///<!--BORRA DE TODAS LAS ESTRUCTURAS-->
+                TaskModel TaskToDelete = Storage.Instance.HashTable.Find(Storage.Instance.HashTable.GetHash(TaskToFind), TaskToFind.Title);
+                Storage.Instance.HashTable.Remove(TaskToDelete, Storage.Instance.HashTable.GetHash(TaskToDelete));
+                Storage.Instance.globalTaskList.Remove(TaskToDelete);
+
+                ///<!--AGREGAR AQUI LA SOBRE INSCRIPCION DEL ARCHIVO--> 
+                string Path_csv = Server.MapPath("~/App_Data/");
+                string FilePath_csv = Path_csv + "final_data.csv";
+               if (TaskModel.WriteCSV(FilePath_csv))
+                {
+                    Storage.Instance.csvModified = true;
+                    return View(Storage.Instance.taskResult);
+                }
+                else
+                {
+                    return View("Error");
+                }                
+                
+            }
         }
 
         public ActionResult WatchDevelopers_admin(int? page)

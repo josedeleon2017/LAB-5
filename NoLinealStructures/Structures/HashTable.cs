@@ -28,7 +28,7 @@ namespace NoLinealStructures.Structures
         public int Count()
         {
             int elements = 0;
-            for(int i = 0; i < Dictionary.Length - 1; i++)
+            for(int i = 0; i < Dictionary.Length; i++)
             {
                 if (Dictionary[i] != null)
                 {
