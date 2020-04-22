@@ -142,13 +142,10 @@ namespace LAB_5___Tablas_Hash_y_Colas_de_prioridad.Models
 
         public static Func<string, int> GetPriorityValue = delegate (string Title)
          {
-             int HashCode = 0;
-             for (int i = 0; i < Title.Length; i++)
-             {
-                 HashCode += (int)Title.ElementAt(i);
-             }
-             HashCode %= 10;
-             TaskModel Temp = Storage.Instance.HashTable.Find(HashCode, Title);
+             TaskModel TaskTitle= new TaskModel();
+             TaskTitle.Title = Title;
+
+             TaskModel Temp = Storage.Instance.HashTable.Find(Storage.Instance.HashTable.GetHash(TaskTitle), Title);
              return Temp.Priority;
          };
 

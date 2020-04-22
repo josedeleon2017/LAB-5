@@ -9,7 +9,7 @@ namespace NoLinealStructures.Structures
 {
     public class HashTable<T> : Interfaces.IHashTableStructure<T>
     {
-        private List<T>[] Dictionary = new List<T>[10];
+        private List<T>[] Dictionary = new List<T>[15];
         public Delegate GetKeyValue;
 
         public void Add(T value, int key)
@@ -60,13 +60,15 @@ namespace NoLinealStructures.Structures
         public int GetHash(T value)
         {
             int HashCode = 0;
+            int currentCode = 0;
             string Key = (string)GetKeyValue.DynamicInvoke(value);
 
             for (int i = 0; i < Key.Length; i++)
             {
-                HashCode += (int)Key.ElementAt(i);
+                currentCode = ((int)Key.ElementAt(i))*(i);
+                HashCode += currentCode;
             }
-            return HashCode % 10;
+            return HashCode % 15;
         }
 
         public void Remove(T value, int key)

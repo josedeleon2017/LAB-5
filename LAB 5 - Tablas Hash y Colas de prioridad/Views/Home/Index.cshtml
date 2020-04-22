@@ -9,6 +9,9 @@
     <br />
     <div onclick="location.href='@Url.Action("Login","User")'">
         Datos cargados exitosamente... <br />
+        <b>TAREAS</b>
+        <br/>
+        <b>@ViewBag.Message</b>
     </div>
 </div>
 
@@ -33,7 +36,6 @@
     <br />
 
     <div class="text-center">
-        <h4><b><span class="badge">@ViewBag.Message</span> TAREAS</b></h4>
         <button type="button" onclick="location.href='@Url.Action("Login","User")'" class="btn btn-default text-center">Login</button>
     </div>
 
